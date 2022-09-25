@@ -1,9 +1,32 @@
-import type { NextPage } from "next"
+import type { GetStaticProps, NextPage } from "next"
 import Head from "next/head"
 
-const Home: NextPage = () => {
+import { items, Item } from "~/data"
+import { processItems } from "~/utils"
+
+import ListItem from "~/components/ListItem"
+
+type Props = {
+  items: Required<Item>[]
+}
+
+export const getStaticProps: GetStaticProps<Props> = (context) => {
+  const processedItems = processItems(items)
+
+  const sortedItems = processedItems.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
+
+  return {
+    props: {
+      items: sortedItems,
+    },
+  }
+}
+
+const Page: NextPage<Props> = ({ items }) => {
   return (
-    <>
+    <main>
       <Head>
         <title>Animalia</title>
         <meta
@@ -12,11 +35,14 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1 className="text-4xl">Animalia</h1>
-      </main>
-    </>
+      <h1 className="text-4xl sr-only">Animalia</h1>
+      <section>
+        {items.map((item) => (
+          <ListItem key={item.name} item={item} />
+        ))}
+      </section>
+    </main>
   )
 }
 
-export default Home
+export default Page

@@ -5,7 +5,11 @@ module.exports = {
     fontFamily: {
       sans: ["ApfelGrotezk", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        black: "#1C1C1C",
+      },
+    },
   },
   plugins: [],
 }
