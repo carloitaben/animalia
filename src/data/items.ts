@@ -32,4 +32,7 @@ export const items: Item[] = [
     name: "Eslider",
     tags: [tags.ferret, tags.cat],
   },
+  {
+    name: "Locura",
+  },
 ]

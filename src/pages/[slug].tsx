@@ -2,8 +2,8 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { CSSProperties } from "react"
 import Head from "next/head"
 
-import { items, allTags, Item, Tag } from "~/data"
-import { processItems } from "~/utils"
+import { items, allTags, Tag } from "~/data"
+import { getExistingNames, processItems } from "~/utils"
 
 import Container from "~/components/Container"
 import ListItem from "~/components/ListItem"
@@ -15,7 +15,7 @@ type Params = {
 
 type Props = {
   tag: Tag
-  items: Required<Item>[]
+  items: ReturnType<typeof processItems>
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = () => {
@@ -33,7 +33,9 @@ export const getStaticPaths: GetStaticPaths<Params> = () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
+export const getStaticProps: GetStaticProps<Props, Params> = async ({
+  params,
+}) => {
   if (!params) {
     throw Error("Invalid or missing param")
   }
@@ -44,7 +46,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
     throw Error("Invalid param")
   }
 
-  const processedItems = processItems(items)
+  const existingNames = await getExistingNames()
+  const processedItems = processItems(items, existingNames)
 
   const filteredItems = processedItems.filter((item) =>
     item.tags.some((tag) => tag.slug === params.slug)

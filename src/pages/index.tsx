@@ -1,19 +1,20 @@
 import type { GetStaticProps, NextPage } from "next"
 import Head from "next/head"
 
-import { items, Item } from "~/data"
-import { processItems } from "~/utils"
+import { items } from "~/data"
+import { getExistingNames, processItems } from "~/utils"
 
 import Container from "~/components/Container"
 import ListItem from "~/components/ListItem"
 import Form from "~/components/Form"
 
 type Props = {
-  items: Required<Item>[]
+  items: ReturnType<typeof processItems>
 }
 
-export const getStaticProps: GetStaticProps<Props> = (context) => {
-  const processedItems = processItems(items)
+export const getStaticProps: GetStaticProps<Props> = async (context) => {
+  const existingNames = await getExistingNames()
+  const processedItems = processItems(items, existingNames)
 
   const sortedItems = processedItems.sort((a, b) =>
     a.name.localeCompare(b.name)
