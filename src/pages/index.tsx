@@ -12,6 +12,9 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <main>
+        <h1 className="text-4xl">Animalia</h1>
+      </main>
     </>
   )
 }
