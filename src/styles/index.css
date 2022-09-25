@@ -24,6 +24,6 @@
 
 @layer base {
   html {
-    @apply bg-black text-white;
+    @apply bg-black text-white selection:bg-white selection:text-black;
   }
 }
