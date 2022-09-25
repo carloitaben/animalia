@@ -78,7 +78,7 @@ const Page: NextPage<Props> = ({ tag, items }) => {
       <h1 className="sr-only">{title}</h1>
       <Container>
         {items.map((item) => (
-          <ListItem key={item.name} item={item} />
+          <ListItem key={item.name} item={item} slug={tag.slug} />
         ))}
       </Container>
       <Form />

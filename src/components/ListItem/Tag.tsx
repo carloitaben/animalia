@@ -5,15 +5,18 @@ import { Tag } from "~/data"
 
 type Props = {
   tag: Tag
+  back: boolean
 }
 
-const Tag: FC<Props> = ({ tag }) => {
+const Tag: FC<Props> = ({ tag, back }) => {
   const style: CSSProperties = {
     background: tag.color,
   }
 
+  const href = back ? "/" : tag.slug
+
   return (
-    <Link href={tag.slug}>
+    <Link href={href}>
       <a>
         <span
           className="min-h-[2rem] px-3 flex items-center justify-center rounded-full text-black"

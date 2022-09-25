@@ -9,9 +9,12 @@ import Tag from "./Tag"
 
 type Props = {
   item: ReturnType<typeof processItems>[number]
+  slug?: string
 }
 
-const ListItem: FC<Props> = ({ item }) => {
+const ListItem: FC<Props> = ({ item, slug }) => {
+  const tags = slug ? item.tags.filter((tag) => tag.slug === slug) : item.tags
+
   return (
     <article className="pt-4 pb-8">
       <div className="flex items-start justify-between mb-4">
@@ -19,9 +22,9 @@ const ListItem: FC<Props> = ({ item }) => {
         {item.new && <NewIndicator />}
       </div>
       <ul className="flex items-center gap-2 flex-wrap">
-        {item.tags.map((tag) => (
+        {tags.map((tag) => (
           <li key={tag.slug}>
-            <Tag tag={tag} />
+            <Tag tag={tag} back={!!slug} />
           </li>
         ))}
       </ul>
