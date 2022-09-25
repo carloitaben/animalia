@@ -71,7 +71,7 @@ const Page: NextPage<Props> = ({ tag, items }) => {
   }
 
   return (
-    <main className="min-h-screen" style={style}>
+    <main className="min-h-screen flex flex-col pt-8" style={style}>
       <Head>
         <title>{title}</title>
       </Head>

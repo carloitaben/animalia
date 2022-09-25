@@ -29,14 +29,9 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
 const Page: NextPage<Props> = ({ items }) => {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex flex-col pt-8">
       <Head>
         <title>Animalia</title>
-        <meta
-          name="description"
-          content="Astronomically good pet name inspiration from yours truly, every now an then."
-        />
-        <link rel="icon" href="/favicon.svg" />
       </Head>
       <h1 className="sr-only">Animalia</h1>
       <Container>
