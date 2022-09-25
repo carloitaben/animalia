@@ -1,4 +1,5 @@
-import type { FC } from "react"
+import Link from "next/link"
+import type { CSSProperties, FC } from "react"
 
 import { Tag } from "~/data"
 
@@ -7,7 +8,22 @@ type Props = {
 }
 
 const Tag: FC<Props> = ({ tag }) => {
-  return <div>{tag.name}</div>
+  const style: CSSProperties = {
+    background: tag.color,
+  }
+
+  return (
+    <Link href={tag.slug}>
+      <a>
+        <span
+          className="min-h-[2rem] px-3 flex items-center justify-center rounded-full text-black"
+          style={style}
+        >
+          {tag.name}
+        </span>
+      </a>
+    </Link>
+  )
 }
 
 export default Tag

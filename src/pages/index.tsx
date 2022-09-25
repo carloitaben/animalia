@@ -5,6 +5,7 @@ import { items, Item } from "~/data"
 import { processItems } from "~/utils"
 
 import ListItem from "~/components/ListItem"
+import Form from "~/components/Form"
 
 type Props = {
   items: Required<Item>[]
@@ -33,14 +34,15 @@ const Page: NextPage<Props> = ({ items }) => {
           name="description"
           content="Astronomically good pet name inspiration from yours truly, every now an then."
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
-      <h1 className="text-4xl sr-only">Animalia</h1>
-      <section>
+      <h1 className="sr-only">Animalia</h1>
+      <section className="px-8 divide-y divide-current mx-auto max-w-3xl -mb-16">
         {items.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
       </section>
+      <Form />
     </main>
   )
 }

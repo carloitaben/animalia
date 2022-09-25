@@ -5,6 +5,7 @@ import { items, allTags, Item, Tag } from "~/data"
 import { processItems } from "~/utils"
 
 import ListItem from "~/components/ListItem"
+import Form from "~/components/Form"
 
 type Params = {
   slug: Tag["slug"]
@@ -64,11 +65,12 @@ const Page: NextPage<Props> = ({ name, items }) => {
         <title>Animalia - {name}</title>
       </Head>
       <h1 className="sr-only">{name}</h1>
-      <section>
+      <section className="px-8 divide-y divide-current mx-auto max-w-3xl -mb-16">
         {items.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
       </section>
+      <Form />
     </main>
   )
 }

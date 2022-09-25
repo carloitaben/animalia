@@ -1,4 +1,3 @@
-import Link from "next/link"
 import type { FC } from "react"
 
 import { Item } from "~/data"
@@ -11,16 +10,12 @@ type Props = {
 
 const ListItem: FC<Props> = ({ item }) => {
   return (
-    <article>
-      <h4>{item.name}</h4>
-      <ul>
+    <article className="pt-4 pb-8">
+      <h4 className="text-6xl font-bold mb-4">{item.name}</h4>
+      <ul className="flex items-center gap-2">
         {item.tags.map((tag) => (
           <li key={tag.slug}>
-            <Link href={tag.slug}>
-              <a>
-                <Tag tag={tag} />
-              </a>
-            </Link>
+            <Tag tag={tag} />
           </li>
         ))}
       </ul>
