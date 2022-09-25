@@ -1,4 +1,5 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { CSSProperties } from "react"
 import Head from "next/head"
 
 import { items, allTags, Item, Tag } from "~/data"
@@ -61,8 +62,13 @@ export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
 
 const Page: NextPage<Props> = ({ tag, items }) => {
   const title = `Animalia - ${tag.name}`
+
+  const style: CSSProperties = {
+    color: tag.color,
+  }
+
   return (
-    <main>
+    <main className="min-h-screen" style={style}>
       <Head>
         <title>{title}</title>
       </Head>

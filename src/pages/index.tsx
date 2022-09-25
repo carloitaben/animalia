@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<Props> = (context) => {
 
 const Page: NextPage<Props> = ({ items }) => {
   return (
-    <main>
+    <main className="min-h-screen flex flex-col">
       <Head>
         <title>Animalia</title>
         <meta
