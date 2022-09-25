@@ -4,6 +4,7 @@ import Head from "next/head"
 import { items, Item } from "~/data"
 import { processItems } from "~/utils"
 
+import Container from "~/components/Container"
 import ListItem from "~/components/ListItem"
 import Form from "~/components/Form"
 
@@ -37,11 +38,11 @@ const Page: NextPage<Props> = ({ items }) => {
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <h1 className="sr-only">Animalia</h1>
-      <section className="px-8 divide-y divide-current mx-auto max-w-3xl -mb-16">
+      <Container>
         {items.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
-      </section>
+      </Container>
       <Form />
     </main>
   )

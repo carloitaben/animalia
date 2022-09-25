@@ -4,6 +4,7 @@ import Head from "next/head"
 import { items, allTags, Item, Tag } from "~/data"
 import { processItems } from "~/utils"
 
+import Container from "~/components/Container"
 import ListItem from "~/components/ListItem"
 import Form from "~/components/Form"
 
@@ -12,7 +13,7 @@ type Params = {
 }
 
 type Props = {
-  name: Tag["name"]
+  tag: Tag
   items: Required<Item>[]
 }
 
@@ -52,24 +53,25 @@ export const getStaticProps: GetStaticProps<Props, Params> = ({ params }) => {
 
   return {
     props: {
-      name: paramTag.name,
+      tag: paramTag,
       items: sortedItems,
     },
   }
 }
 
-const Page: NextPage<Props> = ({ name, items }) => {
+const Page: NextPage<Props> = ({ tag, items }) => {
+  const title = `Animalia - ${tag.name}`
   return (
     <main>
       <Head>
-        <title>Animalia - {name}</title>
+        <title>{title}</title>
       </Head>
-      <h1 className="sr-only">{name}</h1>
-      <section className="px-8 divide-y divide-current mx-auto max-w-3xl -mb-16">
+      <h1 className="sr-only">{title}</h1>
+      <Container>
         {items.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
-      </section>
+      </Container>
       <Form />
     </main>
   )
