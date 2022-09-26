@@ -1,8 +1,13 @@
 import { Window, HTMLElement } from "happy-dom"
 
-import { allTags, Item } from "~/data"
+import { allTags, items, Item } from "~/data"
 
 export async function getExistingNames() {
+  // Don't fetch on development
+  if (process.env.NODE_ENV === "development") {
+    return items.map((item) => item.name)
+  }
+
   const window = new Window()
   const response = await fetch("https://animalia.carlo.works/")
   const data = await response.text()
