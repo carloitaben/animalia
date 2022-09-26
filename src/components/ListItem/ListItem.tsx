@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { FC } from "react"
+import { motion, Transition, Variants } from "framer-motion"
 
 import { processItems } from "~/utils"
 
@@ -12,11 +11,20 @@ type Props = {
   slug?: string
 }
 
+const transition: Transition = {
+  type: "spring",
+  duration: 1,
+}
+
 const ListItem: FC<Props> = ({ item, slug }) => {
   const tags = slug ? item.tags.filter((tag) => tag.slug === slug) : item.tags
 
   return (
-    <article className="pt-4 pb-8">
+    <motion.article
+      layoutId={item.name}
+      transition={transition}
+      className="pt-4 pb-8"
+    >
       <div className="flex items-start justify-between mb-4">
         <h4 className="text-6xl font-bold">{item.name}</h4>
         {item.new && <NewIndicator />}
@@ -28,7 +36,7 @@ const ListItem: FC<Props> = ({ item, slug }) => {
           </li>
         ))}
       </ul>
-    </article>
+    </motion.article>
   )
 }
 
