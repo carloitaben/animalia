@@ -1,1 +1,1 @@
-Astronomically good pet name inspiration from yours truly, every now an then.
+Astronomically good pet name inspiration from yours truly, every now and then.

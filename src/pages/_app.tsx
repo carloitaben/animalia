@@ -12,11 +12,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href="/favicon.svg" />
         <meta
           name="description"
-          content="Astronomically good pet name inspiration from yours truly, every now an then."
+          content="Astronomically good pet name inspiration from yours truly, every now and then."
         />
         <meta
           property="og:description"
-          content="Astronomically good pet name inspiration from yours truly, every now an then."
+          content="Astronomically good pet name inspiration from yours truly, every now and then."
         />
         <meta property="og:site_name" content="Animalia" />
         <meta property="og:url" content="https://animalia.carlo.works/" />
