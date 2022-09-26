@@ -192,7 +192,7 @@ export const items: Item[] = [
     tags: [tags.cat, tags.cockatiel, tags.ferret],
   },
   {
-    name: "Gogita",
+    name: "Gotita",
     tags: [tags.cockatiel],
   },
   {
@@ -225,5 +225,31 @@ export const items: Item[] = [
   {
     name: "Finche",
     tags: [tags.cockatiel],
+  },
+  {
+    name: "Arda",
+    tags: [tags.cat],
+  },
+  {
+    name: "Maxibon",
+  },
+  {
+    name: "Pollito",
+    tags: [tags.cockatiel, tags.cat],
+  },
+  {
+    name: "Oruga",
+    tags: [tags.ferret],
+  },
+  {
+    name: "Tanque",
+  },
+  {
+    name: "Guinda",
+    tags: [tags.cat, tags.cockatiel],
+  },
+  {
+    name: "Guindilla",
+    tags: [tags.ferret],
   },
 ]
