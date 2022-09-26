@@ -31,6 +31,7 @@ const Page: NextPage<Props> = ({ items }) => {
     <Main>
       <Head>
         <title>Animalia - New names</title>
+        <meta property="og:title" content="Animalia - New names" />
       </Head>
       <h1 className="sr-only">Animalia - New names</h1>
       <Container>

@@ -75,6 +75,7 @@ const Page: NextPage<Props> = ({ tag, items }) => {
     <Main style={style}>
       <Head>
         <title>{title}</title>
+        <meta property="og:title" content={title} />
       </Head>
       <h1 className="sr-only">{title}</h1>
       <Container>
