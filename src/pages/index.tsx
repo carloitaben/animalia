@@ -7,7 +7,7 @@ import { getExistingNames, processItems } from "~/utils"
 import Main from "~/components/Main"
 import Container from "~/components/Container"
 import ListItem from "~/components/ListItem"
-import Form from "~/components/Form"
+import Footer from "~/components/Footer"
 
 type Props = {
   items: ReturnType<typeof processItems>
@@ -41,7 +41,7 @@ const Page: NextPage<Props> = ({ items }) => {
           <ListItem key={item.name} item={item} />
         ))}
       </Container>
-      <Form />
+      <Footer />
     </Main>
   )
 }

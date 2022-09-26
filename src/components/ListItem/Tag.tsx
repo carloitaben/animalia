@@ -19,7 +19,7 @@ const Tag: FC<Props> = ({ tag }) => {
 
   return (
     <Link href={href}>
-      <a>
+      <a className="rounded-full">
         <span
           className="min-h-[2rem] px-3 flex items-center justify-center rounded-full text-black"
           style={style}

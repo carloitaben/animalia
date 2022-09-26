@@ -26,4 +26,10 @@
   html {
     @apply bg-black text-white selection:bg-white selection:text-black;
   }
+
+  a,
+  button,
+  input {
+    @apply focus:outline-black;
+  }
 }
