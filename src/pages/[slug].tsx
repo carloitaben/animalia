@@ -5,6 +5,7 @@ import Head from "next/head"
 import { items, allTags, Tag } from "~/data"
 import { getExistingNames, processItems } from "~/utils"
 
+import Main from "~/components/Main"
 import Container from "~/components/Container"
 import ListItem from "~/components/ListItem"
 import Form from "~/components/Form"
@@ -71,18 +72,18 @@ const Page: NextPage<Props> = ({ tag, items }) => {
   }
 
   return (
-    <main className="min-h-screen flex flex-col pt-8" style={style}>
+    <Main style={style}>
       <Head>
         <title>{title}</title>
       </Head>
       <h1 className="sr-only">{title}</h1>
       <Container>
         {items.map((item) => (
-          <ListItem key={item.name} item={item} slug={tag.slug} />
+          <ListItem key={item.name} item={item} />
         ))}
       </Container>
       <Form />
-    </main>
+    </Main>
   )
 }
 

@@ -16,10 +16,8 @@ type Props = {
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const existingNames = await getExistingNames()
   const processedItems = processItems(items, existingNames)
-
-  const sortedItems = processedItems.sort((a, b) =>
-    a.name.localeCompare(b.name)
-  )
+  const filteredItems = processedItems.filter((item) => item.new)
+  const sortedItems = filteredItems.sort((a, b) => a.name.localeCompare(b.name))
 
   return {
     props: {
@@ -32,9 +30,9 @@ const Page: NextPage<Props> = ({ items }) => {
   return (
     <Main>
       <Head>
-        <title>Animalia</title>
+        <title>Animalia - New names</title>
       </Head>
-      <h1 className="sr-only">Animalia</h1>
+      <h1 className="sr-only">Animalia - New names</h1>
       <Container>
         {items.map((item) => (
           <ListItem key={item.name} item={item} />

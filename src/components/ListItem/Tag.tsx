@@ -1,19 +1,21 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
 import type { CSSProperties, FC } from "react"
 
 import { Tag } from "~/data"
 
 type Props = {
   tag: Tag
-  back: boolean
 }
 
-const Tag: FC<Props> = ({ tag, back }) => {
+const Tag: FC<Props> = ({ tag }) => {
+  const { asPath } = useRouter()
+
+  const href = asPath === "/" || asPath === "/new" ? tag.slug : "/"
+
   const style: CSSProperties = {
     background: tag.color,
   }
-
-  const href = back ? "/" : tag.slug
 
   return (
     <Link href={href}>

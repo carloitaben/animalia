@@ -1,5 +1,6 @@
+import { useRouter } from "next/router"
 import { FC } from "react"
-import { motion, Transition, Variants } from "framer-motion"
+import { motion, Transition } from "framer-motion"
 
 import { processItems } from "~/utils"
 
@@ -8,7 +9,6 @@ import Tag from "./Tag"
 
 type Props = {
   item: ReturnType<typeof processItems>[number]
-  slug?: string
 }
 
 const transition: Transition = {
@@ -16,8 +16,13 @@ const transition: Transition = {
   duration: 1,
 }
 
-const ListItem: FC<Props> = ({ item, slug }) => {
-  const tags = slug ? item.tags.filter((tag) => tag.slug === slug) : item.tags
+const ListItem: FC<Props> = ({ item }) => {
+  const { asPath } = useRouter()
+
+  const tags =
+    asPath === "/" || asPath === "/new"
+      ? item.tags
+      : item.tags.filter((tag) => `/${tag.slug}` === asPath)
 
   return (
     <motion.article
@@ -32,7 +37,7 @@ const ListItem: FC<Props> = ({ item, slug }) => {
       <ul className="flex items-center gap-2 flex-wrap">
         {tags.map((tag) => (
           <li key={tag.slug}>
-            <Tag tag={tag} back={!!slug} />
+            <Tag tag={tag} />
           </li>
         ))}
       </ul>
