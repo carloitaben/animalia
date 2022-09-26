@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { FC } from "react"
-import { motion, Transition } from "framer-motion"
 
 import { processItems } from "~/utils"
 
@@ -11,10 +10,6 @@ type Props = {
   item: ReturnType<typeof processItems>[number]
 }
 
-const transition: Transition = {
-  type: "spring",
-  duration: 1,
-}
 
 const ListItem: FC<Props> = ({ item }) => {
   const { asPath } = useRouter()
@@ -25,11 +20,7 @@ const ListItem: FC<Props> = ({ item }) => {
       : item.tags.filter((tag) => `/${tag.slug}` === asPath)
 
   return (
-    <motion.article
-      layoutId={item.name}
-      transition={transition}
-      className="pt-4 pb-8"
-    >
+    <article className="pt-4 pb-8">
       <div className="flex items-start justify-between mb-4">
         <h4 className="text-6xl font-bold">{item.name}</h4>
         {item.new && <NewIndicator />}
@@ -41,7 +32,7 @@ const ListItem: FC<Props> = ({ item }) => {
           </li>
         ))}
       </ul>
-    </motion.article>
+    </article>
   )
 }
 

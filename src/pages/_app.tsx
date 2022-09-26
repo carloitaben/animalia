@@ -3,7 +3,7 @@ import "../styles/index.css"
 import type { AppProps } from "next/app"
 import Head from "next/head"
 
-import Footer from "~/components/Footer"
+// import Footer from "~/components/Footer"
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -25,7 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <div className="min-h-screen flex flex-col">
         <Component {...pageProps} />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   )

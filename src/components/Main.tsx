@@ -8,7 +8,7 @@ type Props = ElementProps & {
 
 const Main: FC<Props> = ({ children, className = "", ...props }) => {
   return (
-    <main className={`pt-8 flex-1 ${className}`} {...props}>
+    <main className={`py-8 flex-1 ${className}`} {...props}>
       {children}
     </main>
   )
