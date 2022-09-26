@@ -8,7 +8,6 @@ import { getExistingNames, processItems } from "~/utils"
 import Main from "~/components/Main"
 import Container from "~/components/Container"
 import ListItem from "~/components/ListItem"
-import Footer from "~/components/Footer"
 
 type Params = {
   slug: Tag["slug"]
@@ -83,7 +82,6 @@ const Page: NextPage<Props> = ({ tag, items }) => {
           <ListItem key={item.name} item={item} />
         ))}
       </Container>
-      <Footer />
     </Main>
   )
 }

@@ -32,7 +32,7 @@ const Footer: FC = () => {
   const [opened, toggle] = useReducer((current) => !current, true)
 
   return (
-    <footer className="sticky inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black px-8 pb-8 pt-16 pointer-events-none flex items-center justify-center">
+    <footer className="sticky inset-x-0 bottom-0 bg-gradient-to-b -mt-16 from-transparent to-black px-8 pb-8 pt-16 pointer-events-none flex items-center justify-center">
       <div className="rounded-[2rem] bg-white relative text-black pointer-events-auto w-full max-w-sm overflow-hidden">
         <button
           className="flex items-center justify-between w-full px-6 py-5 rounded-full"

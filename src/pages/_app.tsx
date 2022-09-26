@@ -1,7 +1,9 @@
+import "../styles/index.css"
+
 import type { AppProps } from "next/app"
 import Head from "next/head"
 
-import "../styles/index.css"
+import Footer from "~/components/Footer"
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -21,7 +23,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.jpg" />
       </Head>
-      <Component {...pageProps} />
+      <div className="min-h-screen flex flex-col">
+        <Component {...pageProps} />
+        <Footer />
+      </div>
     </>
   )
 }
