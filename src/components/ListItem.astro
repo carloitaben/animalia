@@ -9,10 +9,10 @@ type Props = {
 const { item } = Astro.props
 ---
 
-<article id={item.name}>
+<article id={item.slug}>
   <article>
     <div>
-      <a href={`#${item.name}`}>
+      <a href={`#${item.slug}`}>
         <h4>{item.name}</h4>
       </a>
       <span>★</span>

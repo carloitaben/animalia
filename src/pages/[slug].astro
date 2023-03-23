@@ -1,31 +1,25 @@
 ---
-import type { GetStaticPathsResult, InferGetStaticParamsType, InferGetStaticPropsType } from "astro"
-import List from "~/components/List.astro"
+import type { GetStaticPathsResult, InferGetStaticPropsType } from "astro"
+import { getTags, getItemsByTagSlug } from "~/lib/data"
 import Layout from "~/layouts/Layout.astro"
-import { getTags } from "~/lib/data"
-
-const tags = await getTags()
+import List from "~/components/List.astro"
 
 export async function getStaticPaths() {
+  const tags = await getTags()
+
   return tags.map((tag) => ({
     params: { slug: tag.slug },
-    props: tag,
+    props: { tag },
   })) satisfies GetStaticPathsResult
 }
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const { slug } = Astro.params
-const { color, name } = Astro.props
+const { tag } = Astro.props
 
-const tag = tags.find((tag) => tag.slug === slug)
-
-if (!tag) {
-  throw Error("aaaa handle 404 here")
-}
+const items = await getItemsByTagSlug(tag.slug)
 ---
 
 <Layout tag={tag}>
-  <List items={[]} />
+  <List items={items} />
 </Layout>

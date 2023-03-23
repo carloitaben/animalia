@@ -1,12 +1,14 @@
 import { Client } from "@notionhq/client"
+import { withCache } from "ultrafetch"
 
-// ADD SLUG TO THE ITEMS PLS
+const DATABASE_ID = "57dc8a63a9684fd89a368a6e3c7a08c6"
+
+const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" })
 
 const notion = new Client({
   auth: import.meta.env.NOTION_INTEGRATION_TOKEN,
+  fetch: withCache(fetch),
 })
-
-const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" })
 
 const colors = {
   red: "#FE5B6F",
@@ -18,28 +20,34 @@ const colors = {
 
 type Colors = typeof colors
 
-export type Tag = {
-  name: string
-  color: Colors[keyof Colors]
+/**
+ * Modified from here https://gist.github.com/codeguy/6684588?permalink_comment_id=4325476#gistcomment-4325476
+ */
+function slugify(string: string) {
+  return string
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\_/g, "-")
+    .replace(/\-\-+/g, "-")
+    .replace(/\-$/g, "")
 }
 
-export type Item = {
-  name: string
-  tags: Tag[]
-}
-
-function isColor(color: string): color is keyof Colors {
-  return color in colors
+function guardColor(color: string): asserts color is keyof Colors {
+  if (!(color in colors)) throw Error(`Unsupported color: ${color}`)
 }
 
 function getColor(color: string) {
-  if (!isColor(color)) throw Error(`Unsupported color: ${color}`)
+  guardColor(color)
   return colors[color]
 }
 
 export async function getTags() {
   const database = await notion.databases.retrieve({
-    database_id: "57dc8a63a9684fd89a368a6e3c7a08c6",
+    database_id: DATABASE_ID,
   })
 
   if (!("Kind" in database.properties)) {
@@ -53,27 +61,38 @@ export async function getTags() {
   return database.properties.Kind.multi_select.options
     .map((option) => ({
       name: option.name,
-      slug: option.name.toLocaleLowerCase(),
+      slug: slugify(option.name),
       color: getColor(option.color),
     }))
     .sort((a, b) => collator.compare(a.slug, b.slug))
 }
 
+export type Tag = Awaited<ReturnType<typeof getTags>>[number]
+
+export type Item = {
+  name: string
+  slug: string
+  tags: Tag[]
+}
+
 export async function getItems() {
   let data = await notion.databases.query({
-    database_id: "57dc8a63a9684fd89a368a6e3c7a08c6",
+    database_id: DATABASE_ID,
   })
 
   let results = [...data.results]
 
   while (data.has_more && data.next_cursor) {
     data = await notion.databases.query({
-      database_id: "57dc8a63a9684fd89a368a6e3c7a08c6",
+      database_id: DATABASE_ID,
       start_cursor: data.next_cursor,
     })
 
     results = [...results, ...data.results]
   }
+
+  const tags = await getTags()
+  const tagsMap = new Map<string, Tag>(tags.map((tag) => [tag.name, tag]))
 
   const processedResults = results.reduce((accumulator, result) => {
     if (!("properties" in result)) return accumulator
@@ -81,33 +100,28 @@ export async function getItems() {
     if (!("title" in result.properties.Name)) return accumulator
 
     const name = result.properties.Name.title.map((title) => title.plain_text).join(" ")
+    const slug = slugify(name)
 
-    if (accumulator.has(name)) {
-      console.warn(`Ojo hay duplicau ${name}`) // TODO esto hacerlo bonito, quizás un test
+    if (accumulator.has(slug)) {
+      console.warn(`Skipping duplicated item: ${name}`)
       return accumulator
     }
 
-    if (!("multi_select" in result.properties.Kind)) {
-      return accumulator.set(name, {
-        name,
-        tags: [],
-      })
+    let resultTags: Tag[] = []
+
+    if ("multi_select" in result.properties.Kind) {
+      resultTags = result.properties.Kind.multi_select
+        .reduce<typeof resultTags>((accumulator, value) => {
+          const tag = tagsMap.get(value.name)
+          if (tag) accumulator.push(tag)
+          return accumulator
+        }, [])
+        .sort((a, b) => collator.compare(a.slug, b.slug))
     }
 
-    // TODO: sort this before sending them to client
-    const tags = result.properties.Kind.multi_select.map((value) => {
-      if (!(value.color in colors)) {
-        throw Error(`Unsupported color: ${value.color}`)
-      }
-
-      return {
-        name: value.name,
-        color: colors[value.color as keyof Colors],
-      }
-    })
-
-    return accumulator.set(name, {
+    return accumulator.set(slug, {
       name,
+      slug,
       tags,
     })
   }, new Map<string, Item>())
@@ -115,13 +129,8 @@ export async function getItems() {
   return Array.from(processedResults.values()).sort((a, b) => a.name.localeCompare(b.name))
 }
 
-export async function getItemsByCategory(tag: string) {
+export async function getItemsByTagSlug(slug: string) {
   const items = await getItems()
-  return items
-    .filter((item) =>
-      item.tags.some(({ name }) => {
-        return tag === name.toLocaleLowerCase()
-      })
-    )
-    .sort((a, b) => a.name.localeCompare(b.name))
+
+  return items.filter((item) => item.tags.some((tag) => tag.slug === slug)).sort((a, b) => a.name.localeCompare(b.name))
 }
