@@ -10,9 +10,12 @@ const colors = {
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
+    screens: {
+      xs: "500px",
+    },
     extend: {
       fontFamily: {
-        sans: ["ApfelGrotezk", "sans-serif"],
+        sans: ["Apfel Grotezk", "Apfel Grotezk Fallback"],
       },
       colors: {
         ...colors,

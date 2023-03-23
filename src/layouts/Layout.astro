@@ -1,5 +1,5 @@
 ---
-import { Sprite } from 'astro-icon'
+import { Sprite } from "astro-icon"
 
 import type { Tag } from "~/lib/data"
 import "~/style/index.css"
@@ -12,7 +12,10 @@ const { tag } = Astro.props
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  class="scroll-p-4 scroll-smooth bg-black text-white selection:bg-white selection:text-black"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -20,9 +23,9 @@ const { tag } = Astro.props
     <meta name="generator" content={Astro.generator} />
     <title>Animalia</title>
   </head>
-  <body>
+  <body class="flex min-h-screen flex-col">
     <Sprite.Provider>
-      <main>
+      <main class="flex-1 py-8">
         <slot />
       </main>
     </Sprite.Provider>

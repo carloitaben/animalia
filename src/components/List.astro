@@ -9,12 +9,14 @@ type Props = {
 const { items } = Astro.props
 ---
 
-<ul>
-  {
-    items.map((item) => (
-      <li>
-        <ListItem item={item} />
-      </li>
-    ))
-  }
-</ul>
+<section>
+  <ul class="mx-auto w-full max-w-3xl divide-y divide-current px-8">
+    {
+      items.map((item) => (
+        <li class="pt-4 pb-8">
+          <ListItem item={item} />
+        </li>
+      ))
+    }
+  </ul>
+</section>

@@ -3,25 +3,39 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "ApfelGrotezk";
-  src: url("/fonts/ApfelGrotezk-Regular.woff2") format("woff2"),
-    url("/fonts/ApfelGrotezk-Regular.woff") format("woff");
-  font-weight: 400;
+  font-family: 'Apfel Grotezk';
   font-style: normal;
-  font-display: fallback;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ApfelGrotezk-Regular.woff2") format("woff2"), url("/fonts/ApfelGrotezk-Regular.woff") format("woff");
 }
 
 @font-face {
-  font-family: "ApfelGrotezk";
-  src: url("/fonts/ApfelGrotezk-Fett.woff2") format("woff2"),
-    url("/fonts/ApfelGrotezk-Fett.woff") format("woff");
-  font-weight: 600;
+  font-family: 'Apfel Grotezk Fallback';
   font-style: normal;
-  font-display: fallback;
+  font-weight: 400;
+  src: local('Arial');
+  ascent-override: 90.67%;
+  descent-override: 20.61%;
+  line-gap-override: 0.00%;
+  size-adjust: 97.06%;
 }
 
-@layer base {
-  html {
-    @apply bg-black text-white selection:bg-white selection:text-black;
-  }
+@font-face {
+  font-family: 'Apfel Grotezk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/ApfelGrotezk-Fett.woff2") format("woff2"), url("/fonts/ApfelGrotezk-Fett.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Apfel Grotezk Fallback';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Arial Bold');
+  ascent-override: 95.78%;
+  descent-override: 21.77%;
+  line-gap-override: 0.00%;
+  size-adjust: 91.88%;
 }
