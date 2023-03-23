@@ -11,6 +11,9 @@ module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["ApfelGrotezk", "sans-serif"],
+      },
       colors: {
         ...colors,
         black: "#1C1C1C",
