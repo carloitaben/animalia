@@ -102,6 +102,7 @@ export async function getItems() {
     const name = result.properties.Name.title
       .map((title) => title.plain_text)
       .join(" ")
+
     const slug = slugify(name)
 
     if (accumulator.has(slug)) {
@@ -124,7 +125,7 @@ export async function getItems() {
     return accumulator.set(slug, {
       name,
       slug,
-      tags,
+      tags: resultTags,
     })
   }, new Map<string, Item>())
 
