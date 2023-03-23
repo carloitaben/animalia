@@ -9,6 +9,8 @@ export type Props = {
 }
 
 const { tag } = Astro.props
+const title = `Animalia${tag && ` – ${tag.name}`}`
+const description = "Astronomically good pet name inspiration from yours truly, every now and then."
 ---
 
 <!DOCTYPE html>
@@ -21,8 +23,22 @@ const { tag } = Astro.props
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Animalia</title>
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" name="description" content={description} />
+    <meta property="og:site_name" content="Animalia" />
+    <meta property="og:url" content={Astro.url} />
+    <meta name="language" content="en" />
+    <meta name="author" content="Carlo, hello@carlo.works" />
+    <meta name="canonical" property="og:url" content={Astro.url} />
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:domain" content={Astro.url}>
+    <meta name="twitter:url" content={Astro.url}>
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content="/og-image.jpg">
   </head>
   <body class="flex min-h-screen flex-col">
     <Sprite.Provider>
