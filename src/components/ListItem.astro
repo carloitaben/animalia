@@ -1,4 +1,5 @@
 ---
+import { Sprite } from "astro-icon"
 import type { Item } from "~/lib/data"
 import Tag from "./Tag.astro"
 
@@ -7,24 +8,30 @@ type Props = {
 }
 
 const { item } = Astro.props
+const indicatorLabel = "New item"
 ---
 
 <article id={item.slug}>
-  <article>
-    <div>
-      <a href={`#${item.slug}`}>
-        <h4>{item.name}</h4>
-      </a>
-      <span>★</span>
-    </div>
-    <ul class="flex flex-wrap items-center gap-2">
-      {
-        item.tags.map((tag) => (
-          <li>
-            <Tag tag={tag} />
-          </li>
-        ))
-      }
-    </ul>
-  </article>
+  <a href={`#${item.slug}`} class="flex">
+    <h4>{item.name}</h4>
+    <Sprite
+      class="invisible h-5 w-5"
+      name="star"
+      title={indicatorLabel}
+      aria-label={indicatorLabel}
+    />
+  </a>
+  <ul class="flex flex-wrap items-center gap-2">
+    {
+      item.tags.map((tag) => (
+        <li>
+          <Tag tag={tag} />
+        </li>
+      ))
+    }
+  </ul>
 </article>
+
+<script>
+  import "~/lib/viewed-items"
+</script>

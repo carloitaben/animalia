@@ -1,4 +1,6 @@
 ---
+import { Sprite } from 'astro-icon'
+
 import type { Tag } from "~/lib/data"
 import "~/style/index.css"
 
@@ -19,8 +21,10 @@ const { tag } = Astro.props
     <title>Animalia</title>
   </head>
   <body>
-    <main>
-      <slot />
-    </main>
+    <Sprite.Provider>
+      <main>
+        <slot />
+      </main>
+    </Sprite.Provider>
   </body>
 </html>
