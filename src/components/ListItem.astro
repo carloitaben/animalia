@@ -1,21 +1,20 @@
 ---
 import { Sprite } from "astro-icon"
-import type { Item } from "~/lib/data"
+import type { Item, Tag as TagType } from "~/lib/data"
 import Tag from "./Tag.astro"
 
 type Props = {
   item: Item
+  tag?: TagType
 }
 
-const { item } = Astro.props
+const { item, tag } = Astro.props
 const indicatorLabel = "New item"
 ---
 
 <article id={item.slug} class="space-y-4">
   <a href={`#${item.slug}`} class="flex gap-x-4">
-    <h4
-      class="flex-1 text-[12vw] font-bold leading-none text-white xs:text-6xl"
-    >
+    <h4 class="flex-1 text-[12vw] font-bold leading-none xs:text-6xl">
       {item.name}
     </h4>
     <Sprite
@@ -27,11 +26,21 @@ const indicatorLabel = "New item"
   </a>
   <ul class="flex flex-wrap items-center gap-2">
     {
-      item.tags.map((tag) => (
+      tag ? (
         <li>
-          <Tag tag={tag} />
+          <a href="/">
+            <Tag tag={tag} />
+          </a>
         </li>
-      ))
+      ) : (
+        item.tags.map((tag) => (
+          <li>
+            <a href={tag.slug}>
+              <Tag tag={tag} />
+            </a>
+          </li>
+        ))
+      )
     }
   </ul>
 </article>

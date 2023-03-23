@@ -14,7 +14,8 @@ const { tag } = Astro.props
 <!DOCTYPE html>
 <html
   lang="en"
-  class="scroll-p-4 scroll-smooth bg-black text-white selection:bg-white selection:text-black"
+  class="scroll-p-4 scroll-smooth bg-black selection:bg-white selection:text-black"
+  style={{ color: tag?.color || "#F8FBFF" }}
 >
   <head>
     <meta charset="UTF-8" />

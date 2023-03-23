@@ -1,12 +1,13 @@
 ---
-import type { Item } from "~/lib/data"
+import type { Item, Tag } from "~/lib/data"
 import ListItem from "./ListItem.astro"
 
 type Props = {
   items: Item[]
+  tag?: Tag
 }
 
-const { items } = Astro.props
+const { items, tag } = Astro.props
 ---
 
 <section>
@@ -14,7 +15,7 @@ const { items } = Astro.props
     {
       items.map((item) => (
         <li class="pt-4 pb-8">
-          <ListItem item={item} />
+          <ListItem item={item} tag={tag} />
         </li>
       ))
     }
