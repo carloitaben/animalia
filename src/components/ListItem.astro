@@ -1,0 +1,30 @@
+---
+import type { Item } from "~/lib/data"
+import Tag from "./Tag.astro"
+
+type Props = {
+  item: Item
+}
+
+const { item } = Astro.props
+---
+
+<article id={item.name}>
+  <article>
+    <div>
+      <a href={`#${item.name}`}>
+        <h4>{item.name}</h4>
+      </a>
+      <span>★</span>
+    </div>
+    <ul class="flex items-center gap-2 flex-wrap">
+      {
+        item.tags.map((tag) => (
+          <li>
+            <Tag tag={tag} />
+          </li>
+        ))
+      }
+    </ul>
+  </article>
+</article>

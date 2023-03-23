@@ -1,0 +1,16 @@
+---
+import type { Tag } from "~/lib/data"
+
+type Props = {
+  tag: Tag
+}
+
+const { tag } = Astro.props
+---
+
+<span
+  class="min-h-[2rem] px-3 flex items-center justify-center rounded-full text-black"
+  style={{ backgroundColor: tag.color }}
+>
+  {tag.name}
+</span>

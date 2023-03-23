@@ -1,0 +1,20 @@
+---
+import type { Item } from "~/lib/data"
+import ListItem from "./ListItem.astro"
+
+type Props = {
+  items: Item[]
+}
+
+const { items } = Astro.props
+---
+
+<ul>
+  {
+    items.map((item) => (
+      <li>
+        <ListItem item={item} />
+      </li>
+    ))
+  }
+</ul>

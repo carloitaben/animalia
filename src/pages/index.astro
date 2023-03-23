@@ -1,0 +1,11 @@
+---
+import List from "~/components/List.astro"
+import Layout from "~/layouts/Layout.astro"
+import { getItems } from "~/lib/data"
+
+const items = await getItems()
+---
+
+<Layout>
+  <List items={items} />
+</Layout>
