@@ -99,7 +99,9 @@ export async function getItems() {
     if (!("Name" in result.properties)) return accumulator
     if (!("title" in result.properties.Name)) return accumulator
 
-    const name = result.properties.Name.title.map((title) => title.plain_text).join(" ")
+    const name = result.properties.Name.title
+      .map((title) => title.plain_text)
+      .join(" ")
     const slug = slugify(name)
 
     if (accumulator.has(slug)) {
@@ -126,11 +128,15 @@ export async function getItems() {
     })
   }, new Map<string, Item>())
 
-  return Array.from(processedResults.values()).sort((a, b) => a.name.localeCompare(b.name))
+  return Array.from(processedResults.values()).sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
 }
 
 export async function getItemsByTagSlug(slug: string) {
   const items = await getItems()
 
-  return items.filter((item) => item.tags.some((tag) => tag.slug === slug)).sort((a, b) => a.name.localeCompare(b.name))
+  return items
+    .filter((item) => item.tags.some((tag) => tag.slug === slug))
+    .sort((a, b) => a.name.localeCompare(b.name))
 }
