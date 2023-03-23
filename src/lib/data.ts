@@ -25,15 +25,16 @@ type Colors = typeof colors
  */
 function slugify(string: string) {
   return string
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim()
     .replace(/\s+/g, "-")
-    .replace(/[^\w\-]+/g, "")
     .replace(/\_/g, "-")
     .replace(/\-\-+/g, "-")
     .replace(/\-$/g, "")
+}
+
+function capitalize(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
 function guardColor(color: string): asserts color is keyof Colors {
@@ -98,10 +99,11 @@ export async function getItems() {
     if (!("properties" in result)) return accumulator
     if (!("Name" in result.properties)) return accumulator
     if (!("title" in result.properties.Name)) return accumulator
+    if (!result.properties.Name.title.length) return accumulator
 
-    const name = result.properties.Name.title
-      .map((title) => title.plain_text)
-      .join(" ")
+    const name = capitalize(
+      result.properties.Name.title.map((title) => title.plain_text).join(" ")
+    )
 
     const slug = slugify(name)
 
