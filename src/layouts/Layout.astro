@@ -9,7 +9,7 @@ export type Props = {
 }
 
 const { tag } = Astro.props
-const title = `Animalia${tag && ` – ${tag.name}`}`
+const title = `Animalia${tag ? ` – ${tag.name}` : ""}`
 const description = "Astronomically good pet name inspiration from yours truly, every now and then."
 ---
 
