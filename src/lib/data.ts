@@ -1,5 +1,4 @@
 import { Client } from "@notionhq/client"
-import { withCache } from "ultrafetch"
 
 const DATABASE_ID = "57dc8a63a9684fd89a368a6e3c7a08c6"
 
@@ -7,7 +6,6 @@ const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" })
 
 const notion = new Client({
   auth: import.meta.env.NOTION_INTEGRATION_TOKEN,
-  fetch: withCache(fetch),
 })
 
 const colors = {
