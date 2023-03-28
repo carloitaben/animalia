@@ -12,7 +12,7 @@ const { item, tag } = Astro.props
 const indicatorLabel = "New item"
 ---
 
-<article id={item.slug} class="space-y-4">
+<article id={item.slug} class="space-y-4 pt-4 pb-8">
   <a href={`#${item.slug}`} class="flex gap-x-4">
     <h4 class="flex-1 text-[12vw] font-bold leading-none xs:text-6xl">
       {item.name}
@@ -44,7 +44,3 @@ const indicatorLabel = "New item"
     }
   </ul>
 </article>
-
-<script>
-  import "~/lib/viewed-items"
-</script>
