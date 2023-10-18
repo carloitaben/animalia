@@ -20,6 +20,7 @@ export default {
       },
       colors: {
         ...colors,
+        color: "var(--color)",
         black: "#1C1C1C",
         gray: "#ECF0F4",
         white: "#F8FBFF",

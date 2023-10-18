@@ -1,14 +1,13 @@
 ---
 import { Icon } from "astro-icon/components"
-import type { Item, Tag } from "~/lib/data"
-import TagComponent from "./Tag.astro"
+import type { Item } from "~/lib/data"
+import Tag from "./Tag.astro"
 
 type Props = {
   item: Item
-  tag?: Tag
 }
 
-const { item, tag } = Astro.props
+const { item } = Astro.props
 const indicatorLabel = "New item"
 ---
 
@@ -26,21 +25,11 @@ const indicatorLabel = "New item"
   </a>
   <ul class="flex flex-wrap items-center gap-2">
     {
-      tag ? (
+      item.tags.map((t) => (
         <li>
-          <a href="/">
-            <TagComponent {tag} />
-          </a>
+          <Tag tag={t} />
         </li>
-      ) : (
-        item.tags.map((tag) => (
-          <li>
-            <a href={tag.slug}>
-              <TagComponent {tag} />
-            </a>
-          </li>
-        ))
-      )
+      ))
     }
   </ul>
 </article>
