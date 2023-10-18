@@ -9,8 +9,6 @@ const notion = new Client({
   auth: import.meta.env.NOTION_INTEGRATION_TOKEN,
 })
 
-type Colors = typeof colors
-
 /**
  * Modified from here https://gist.github.com/codeguy/6684588?permalink_comment_id=4325476#gistcomment-4325476
  */
@@ -28,7 +26,7 @@ function capitalize(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-function guardColor(color: string): asserts color is keyof Colors {
+function guardColor(color: string): asserts color is keyof typeof colors {
   if (!(color in colors)) throw Error(`Unsupported color: ${color}`)
 }
 
