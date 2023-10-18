@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions"
 import type { Tag } from "~/lib/data"
+import config from "tailwind.config"
 import "~/style/index.css"
 
 export type Props = {
@@ -16,7 +17,8 @@ const description =
 <!doctype html>
 <html
   lang="en"
-  class="scroll-p-4 scroll-smooth bg-black selection:bg-white selection:text-black"
+  class="scroll-p-4 scroll-smooth bg-black selection:bg-color selection:text-black text-color"
+  style={{ "--color": tag?.color || config.theme.extend.colors.white }}
   style={{ color: tag?.color || "#F8FBFF" }}
   transition:animate="none"
 >
