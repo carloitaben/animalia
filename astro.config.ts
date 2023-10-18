@@ -5,6 +5,7 @@ import autoprefixer from "autoprefixer"
 
 // https://astro.build/config
 export default defineConfig({
+  output: "static",
   vite: {
     css: {
       postcss: {
@@ -12,7 +13,5 @@ export default defineConfig({
       },
     },
   },
-  integrations: [
-    icon({ iconDir: "src/assets/icons" })
-  ]
+  integrations: [icon({ iconDir: "src/assets/icons" })],
 })
