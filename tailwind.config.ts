@@ -1,14 +1,15 @@
-const colors = {
+import type { Config } from "tailwindcss"
+
+export const colors = {
   red: "#FE5B6F",
   purple: "#B99DE4",
   yellow: "#FEBD5B",
   green: "#98F06F",
   blue: "#8AEBD9",
-}
+} as const
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+export default {
+  content: ["./src/**/*.{astro,html,ts,tsx}"],
   theme: {
     screens: {
       xs: "500px",
@@ -27,4 +28,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+} satisfies Config

@@ -1,6 +1,5 @@
 ---
-import { Sprite } from "astro-icon"
-
+import { ViewTransitions } from "astro:transitions"
 import type { Tag } from "~/lib/data"
 import "~/style/index.css"
 
@@ -10,14 +9,16 @@ export type Props = {
 
 const { tag } = Astro.props
 const title = `Animalia${tag ? ` – ${tag.name}` : ""}`
-const description = "Astronomically good pet name inspiration from yours truly, every now and then."
+const description =
+  "Astronomically good pet name inspiration from yours truly, every now and then."
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html
   lang="en"
   class="scroll-p-4 scroll-smooth bg-black selection:bg-white selection:text-black"
   style={{ color: tag?.color || "#F8FBFF" }}
+  transition:animate="none"
 >
   <head>
     <meta charset="UTF-8" />
@@ -31,20 +32,19 @@ const description = "Astronomically good pet name inspiration from yours truly, 
     <meta name="language" content="en" />
     <meta name="author" content="Carlo, hello@carlo.works" />
     <meta name="canonical" property="og:url" content={Astro.url} />
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:domain" content={Astro.url}>
-    <meta name="twitter:url" content={Astro.url}>
-    <meta name="twitter:title" content={title}>
-    <meta name="twitter:description" content={description}>
-    <meta name="twitter:image" content="/og-image.jpg">
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:domain" content={Astro.url} />
+    <meta name="twitter:url" content={Astro.url} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/og-image.jpg" />
+    <ViewTransitions />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Sprite.Provider>
-      <main class="flex-1 py-8">
-        <slot />
-      </main>
-    </Sprite.Provider>
+    <main class="flex-1 py-8">
+      <slot />
+    </main>
   </body>
 </html>

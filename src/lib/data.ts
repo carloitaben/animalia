@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client"
+import { colors } from "tailwind.config"
 import datagetitems from "./data-getItems.json"
 import datagettags from "./data-getTags.json"
 
@@ -9,14 +10,6 @@ const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" })
 const notion = new Client({
   auth: import.meta.env.NOTION_INTEGRATION_TOKEN,
 })
-
-const colors = {
-  red: "#FE5B6F",
-  purple: "#B99DE4",
-  yellow: "#FEBD5B",
-  green: "#98F06F",
-  blue: "#8AEBD9",
-} as const
 
 type Colors = typeof colors
 

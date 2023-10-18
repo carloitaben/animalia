@@ -20,6 +20,6 @@ const { tag } = Astro.props
 const items = await getItemsByTagSlug(tag.slug)
 ---
 
-<Layout tag={tag}>
-  <List tag={tag} items={items} />
+<Layout {tag}>
+  <List {tag} {items} />
 </Layout>

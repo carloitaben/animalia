@@ -14,103 +14,10 @@ const { items, tag } = Astro.props
   <ul class="mx-auto w-full max-w-3xl divide-y divide-current px-5 xs:px-8">
     {
       items.map((item) => (
-        <li class="overflow-hidden bg-black" data-flip-id={item.slug}>
-          <ListItem item={item} tag={tag} />
+        <li class="overflow-hidden bg-black">
+          <ListItem {item} {tag} />
         </li>
       ))
     }
   </ul>
 </section>
-
-<script>
-  import diff from "micromorph"
-  import gsap from "gsap"
-  import Flip from "gsap/Flip"
-
-  gsap.registerPlugin(Flip)
-
-  const parser = new DOMParser()
-  const list = document.querySelector<HTMLUListElement>("body main section ul")!
-
-  async function navigate(url: URL) {
-    const response = await fetch(url)
-    const text = await response.text()
-    const target = parser.parseFromString(text, "text/html")
-    
-    const state = Flip.getState(list.children, {
-      simple: true,
-      props: "height"
-    })
-
-    await diff(document, target)
-
-    console.log("try to keep scroll position!!!")
-
-    Flip.from(state, {
-      duration: 1,
-      ease: "power1.inOut",
-      // absoluteOnLeave: true,
-      onEnter: (elements) => {
-        console.log("onEnter", elements[0])
-        return gsap.fromTo(
-          elements,
-          { opacity: 0, height: 0, },
-          { opacity: 1, height: "auto", duration: 1 }
-        )
-      },
-      onLeave: (elements) => {
-        console.log("onLeave", elements[0])
-        return gsap.fromTo(
-          elements,
-          { opacity: 1, height: "auto" },
-          { opacity: 0, height: 0, duration: 1 },
-        )
-      },
-      // nested: true,
-      simple: true,
-      // prune: true,
-    })
-
-  }
-
-  window.addEventListener("popstate", async (event) => {
-    console.log("popstate")
-  })
-
-  window.addEventListener("click", async (event) => {
-    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
-
-    let anchor: HTMLAnchorElement | null = null
-
-    for (
-      let n = event.target as HTMLElement;
-      n.parentNode;
-      n = n.parentNode as HTMLElement
-    ) {
-      if (n.nodeName === "A") {
-        anchor = n as HTMLAnchorElement
-        break
-      }
-    }
-
-    if (!anchor) return
-    if (anchor.host !== location.host) return
-    if (!anchor.hasAttribute("href")) return
-
-    const href = anchor.getAttribute("href")!
-    const url = new URL(href, location.href)
-
-    if (href.startsWith("#")) return
-
-    document.body.classList.add("cursor-wait")
-    event.preventDefault()
-
-    try {
-      await navigate(url)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      document.body.classList.remove("cursor-wait")
-    }
-  })
-</script>

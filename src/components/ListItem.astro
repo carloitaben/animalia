@@ -1,23 +1,23 @@
 ---
-import { Sprite } from "astro-icon"
-import type { Item, Tag as TagType } from "~/lib/data"
-import Tag from "./Tag.astro"
+import { Icon } from "astro-icon/components"
+import type { Item, Tag } from "~/lib/data"
+import TagComponent from "./Tag.astro"
 
 type Props = {
   item: Item
-  tag?: TagType
+  tag?: Tag
 }
 
 const { item, tag } = Astro.props
 const indicatorLabel = "New item"
 ---
 
-<article id={item.slug} class="space-y-4 pt-4 pb-8">
+<article id={item.slug} class="space-y-4 pb-8 pt-4">
   <a href={`#${item.slug}`} class="flex gap-x-4">
     <h4 class="flex-1 text-[12vw] font-bold leading-none xs:text-6xl">
       {item.name}
     </h4>
-    <Sprite
+    <Icon
       class="invisible h-5 w-5 flex-none self-center"
       name="star"
       title={indicatorLabel}
@@ -29,14 +29,14 @@ const indicatorLabel = "New item"
       tag ? (
         <li>
           <a href="/">
-            <Tag tag={tag} />
+            <TagComponent {tag} />
           </a>
         </li>
       ) : (
         item.tags.map((tag) => (
           <li>
             <a href={tag.slug}>
-              <Tag tag={tag} />
+              <TagComponent {tag} />
             </a>
           </li>
         ))
@@ -44,3 +44,27 @@ const indicatorLabel = "New item"
     }
   </ul>
 </article>
+
+<script>
+  import { inView } from "motion"
+  import { hasBeenViewed, setViewed } from "~/lib/viewed"
+
+  document.addEventListener(
+    "astro:page-load",
+    () => {
+      document.querySelectorAll("article").forEach((article) => {
+        if (hasBeenViewed(article.id)) return
+
+        const stop = inView(article, () => {
+          setViewed(article.id)
+          stop()
+        })
+
+        const star = article.querySelector("svg")!
+        // TODO: this should be an animation
+        star.classList.remove("invisible")
+      })
+    },
+    { once: true },
+  )
+</script>
