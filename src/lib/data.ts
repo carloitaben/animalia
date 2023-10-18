@@ -26,12 +26,12 @@ function capitalize(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-function guardColor(color: string): asserts color is keyof typeof colors {
+function isColor(color: string): asserts color is keyof typeof colors {
   if (!(color in colors)) throw Error(`Unsupported color: ${color}`)
 }
 
 function getColor(color: string) {
-  guardColor(color)
+  isColor(color)
   return colors[color]
 }
 
