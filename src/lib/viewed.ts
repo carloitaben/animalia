@@ -5,6 +5,8 @@ const $viewed = persistentAtom<string[]>("viewed", [], {
   decode: JSON.parse,
 })
 
+export const isFirstVisit = $viewed.get().length === 0
+
 export function hasBeenViewed(id: string) {
   return $viewed.get().includes(id)
 }

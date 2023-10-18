@@ -36,7 +36,7 @@ const indicatorLabel = "New item"
 
 <script>
   import { inView } from "motion"
-  import { hasBeenViewed, setViewed } from "~/lib/viewed"
+  import { isFirstVisit, hasBeenViewed, setViewed } from "~/lib/viewed"
 
   document.addEventListener(
     "astro:page-load",
@@ -48,6 +48,8 @@ const indicatorLabel = "New item"
           setViewed(article.id)
           stop()
         })
+
+        if (isFirstVisit) return
 
         const star = article.querySelector("svg")!
         // TODO: this should be an animation
