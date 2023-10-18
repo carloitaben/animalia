@@ -1,0 +1,25 @@
+---
+import type { GetStaticPathsResult, InferGetStaticPropsType } from "astro"
+import { getTags, getItemsByTagSlug } from "~/lib/data"
+import Layout from "~/layouts/Layout.astro"
+import List from "~/components/List.astro"
+
+export async function getStaticPaths() {
+  const tags = await getTags()
+
+  return tags.map((tag) => ({
+    params: { slug: tag.slug },
+    props: { tag },
+  })) satisfies GetStaticPathsResult
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { tag } = Astro.props
+
+const items = await getItemsByTagSlug(tag.slug)
+---
+
+<Layout {tag}>
+  <List {items} />
+</Layout>

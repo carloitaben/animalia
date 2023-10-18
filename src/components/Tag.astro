@@ -1,0 +1,22 @@
+---
+import type { Tag } from "~/lib/data"
+
+type Props = {
+  tag: Tag
+}
+
+const { tag } = Astro.props
+const slug = Astro.url.pathname.slice(1)
+---
+
+<a href={slug === tag.slug ? "/" : tag.slug}>
+  <span
+    class:list={[
+      "flex min-h-[2rem] items-center justify-center rounded-full border border-current px-3 text-black",
+      slug === "" || slug === tag.slug ? "bg-color" : "text-color",
+    ]}
+    style={{ "--color": tag.color }}
+  >
+    {tag.name}
+  </span>
+</a>
