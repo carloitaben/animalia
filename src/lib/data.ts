@@ -1,12 +1,16 @@
 import { Client } from "@notionhq/client"
+import { Resource } from "sst"
 import { colors } from "tailwind.config"
 
 const DATABASE_ID = "57dc8a63a9684fd89a368a6e3c7a08c6"
 
-const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" })
+const collator = new Intl.Collator("en", {
+  numeric: true,
+  sensitivity: "base",
+})
 
 const notion = new Client({
-  auth: import.meta.env.NOTION_INTEGRATION_TOKEN,
+  auth: Resource.NotionIntegrationToken.value,
 })
 
 /**
